@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+{% block static_file %}
+<link type="text/css" href="{% static 'css/magister.css' %}" rel="stylesheet"/>
+<script type="text/javascript" src="{% static 'js/answer.js' %}"></script>
+{% endblock %}
+{% block content %}
+<nav class="mainmenu">
+	<div class="container">
+		<div class="dropdown">
+			<button type="button" class="navbar-toggle" data-toggle="dropdown"><span class="icon-bar"></span> <span class="icon-bar"></span> <span class="icon-bar"></span> </button>
+			<!-- <a data-toggle="dropdown" href="#">Dropdown trigger</a> -->
+			<ul class="dropdown-menu" role="menu" aria-labelledby="dLabel">
+				<li><a href="#head" class="active">Hello</a></li>
+				<li><a href="#about">About me</a></li>
+				<li><a href="#themes">Themes</a></li>
+				<li><a href="#contact">Get in touch</a></li>
+			</ul>
+		</div>
+	</div>
+</nav>
+
+<!-- Third (Works) section -->
+<section class="" id="themes">
+	<div class="container">
+	
+		<h2 class="text-center title">{{question.title}}</h2>
+		<p class="lead text-center">
+			{{question.description}}
+		</p>
+		<input type=hidden id="post_url" name="post_url" value="{% url 'addanswer' %}">
+		<input type=hidden id="next_url" name="next_url" value="{% url 'question' theme_id question_num %}">
+		{% csrf_token %}
+		
+		<div class="row">
+			{% for an in answers %}
+			<div class="col-sm-4 col-sm-offset-2">
+				<div class="thumbnail">
+					<!-- <img src="assets/screenshots/sshot1.jpg" alt=""> -->
+					<div class="caption">
+						<h3 class="answer" aid="{{an.id}}">{{an.sign}}.{{an.content}}</h3>
+						<!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Neque doloribus enim vitae nam cupiditate eius at explicabo eaque facere iste.</p>
+						<p><a href="#" class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p> -->
+					</div>
+				</div>
+			</div>
+			{% endfor %}
+		</div>
+	</div>
+</section>
+{% endblock %}
